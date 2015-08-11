@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="category_titles">
+        <item>Protein</item>
+        <item>Vegetables</item>
+        <item>Dairy</item>
+        <item>Fruit</item>
+        <item>Starches</item>
+        <item>Other</item>
+    </string-array>
+
+    <string-array name="sub_category_titles">
+        <item>@array/protein_sub_categories_titles</item>
+        <item>@array/vegetables_sub_categories_titles</item>
+        <item>@array/dairy_sub_categories_titles</item>
+        <item>@array/fruit_sub_categories_titles</item>
+        <item>@array/starches_sub_categories_titles</item>
+        <item>@array/other_sub_categories_titles</item>
+    </string-array>
+
+    <string-array name="protein_sub_categories_titles">
+        <item>Red Meat</item>
+        <item>Poultry</item>
+        <item>Seafood</item>
+        <item>Beans</item>
+        <item>Nuts/Seeds</item>
+    </string-array>
+
+    <string-array name="vegetables_sub_categories_titles">
+        <item>Canned vegetbales</item>
+        <item>Fresh vegetables</item>
+    </string-array>
+    <string-array name="dairy_sub_categories_titles">
+        <item>Cheese</item>
+        <item>Milk</item>
+        <item>Other</item>
+    </string-array>
+    <string-array name="fruit_sub_categories_titles">
+        <item>Canned fruit</item>
+        <item>Fresh fruit</item>
+    </string-array>
+    <string-array name="starches_sub_categories_titles">
+        <item>Bread</item>
+        <item>Pasta</item>
+    </string-array>
+    <string-array name="other_sub_categories_titles">
+        <item>Baking</item>
+        <item>Condiments</item>
+        <item>Fat</item>
+        <item>Oil</item>
+        <item>Spices</item>
+    </string-array>
+
+    <string-array name="sub_categories">
+        <item>@array/protein_sub_categories</item>
+        <item>@array/vegetables_sub_categories</item>
+        <item>@array/dairy_sub_categories</item>
+        <item>@array/fruit_sub_categories</item>
+        <item>@array/starches_sub_categories</item>
+        <item>@array/other_sub_categories</item>
+    </string-array>
+
+    <string-array name="protein_sub_categories">
+        <item>@array/meat</item>
+        <item>@array/poultry</item>
+        <item>@array/seafood</item>
+        <item>@array/beans</item>
+        <item>@array/nuts_soy</item>
+    </string-array>
+
+    <string-array name="vegetables_sub_categories">
+        <item>@array/canned_vegetables</item>
+        <item>@array/vegetables</item>
+    </string-array>
+
+    <string-array name="dairy_sub_categories">
+        <item>@array/cheese</item>
+        <item>@array/milk</item>
+        <item>@array/other_dairy</item>
+    </string-array>
+
+    <string-array name="fruit_sub_categories">
+        <item>@array/canned_fruit</item>
+        <item>@array/fruit</item>
+    </string-array>
+
+    <string-array name="starches_sub_categories">
+        <item>@array/bread</item>
+        <item>@array/pasta</item>
+    </string-array>
+
+    <string-array name="other_sub_categories">
+        <item>@array/baking</item>
+        <item>@array/condiments</item>
+        <item>@array/fats</item>
+        <item>@array/oils</item>
+        <item>@array/spices</item>
+    </string-array>
+</resources>

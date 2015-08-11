@@ -1,0 +1,23 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:animateLayoutChanges="true"
+    android:background="@color/icons"
+    android:orientation="vertical"
+    tools:context="com.wbohn.recipefinder.Search.KeywordFragment">
+
+    <include layout="@layout/title_bar_search_fragment" />
+
+    <RelativeLayout
+        android:id="@+id/content"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <include layout="@layout/keyword_bar" />
+
+        <include layout="@layout/gridview_menu" />
+
+    </RelativeLayout>
+
+</LinearLayout>

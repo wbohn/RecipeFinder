@@ -1,0 +1,255 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Protein ingredients -->
+    <string-array name="meat">
+        <item>Bacon</item>
+        <item>Beef</item>
+        <item>Lamb</item>
+        <item>Pork</item>
+        <item>Sausage</item>
+        <item>Rib eye steak</item>
+        <item>Sirloin steak</item>
+        <item>Venison</item>
+    </string-array>
+    <string-array name="poultry">
+        <item>Chicken</item>
+        <item>Duck</item>
+        <item>Eggs</item>
+        <item>Goose</item>
+        <item>Pheasant</item>
+        <item>Turkey</item>
+        <item>Quail</item>
+    </string-array>
+    <string-array name="seafood">
+        <item>Anchovies</item>
+        <item>Catfish</item>
+        <item>Crab meat</item>
+        <item>Cod</item>
+        <item>Flounder</item>
+        <item>Halibut fillets</item>
+        <item>Lobster meat</item>
+        <item>Mahi mahi</item>
+        <item>Mussels</item>
+        <item>Oyster</item>
+        <item>Salmon</item>
+        <item>Shrimp</item>
+        <item>Squid</item>
+        <item>Swordfish</item>
+        <item>Tilapia</item>
+        <item>Tuna</item>
+    </string-array>
+    <string-array name="beans">
+        <item>Black beans</item>
+        <item>Black-eyed peas</item>
+        <item>Kidney beans</item>
+        <item>Lentils</item>
+        <item>Lima beans</item>
+        <item>Navy beans</item>
+        <item>Pinto beans</item>
+        <item>Soy beans</item>
+    </string-array>
+    <string-array name="nuts_soy">
+        <item>Almond</item>
+        <item>Brazil nuts</item>
+        <item>Cashew</item>
+        <item>Chestnuts</item>
+        <item>Flax seed</item>
+        <item>Hazelnut</item>
+        <item>Macadamia nuts</item>
+        <item>Pistachios</item>
+        <item>Pecan</item>
+        <item>Poppy seed</item>
+        <item>Pumpkin seed</item>
+        <item>Sesame seed</item>
+        <item>Sunflower seed</item>
+        <item>Walnut</item>
+    </string-array>
+
+    <!-- Vegetables -->
+    <string-array name="canned_vegetables">
+        <item>Baked beans</item>
+        <item>Black beans</item>
+        <item>Canned corn</item>
+        <item>Creamed corn</item>
+    </string-array>
+    <string-array name="vegetables">
+        <item>Alfalfa sprouts</item>
+        <item>Artichokes</item>
+        <item>Asparagus</item>
+        <item>Bamboo shoots</item>
+        <item>Beets</item>
+        <item>Broccoli</item>
+        <item>Brussels sprout</item>
+        <item>Cabbage</item>
+        <item>Carrot</item>
+        <item>Cauliflower</item>
+        <item>Celery</item>
+        <item>Corn</item>
+        <item>Cucumber</item>
+        <item>Lettuce</item>
+        <item>Mushrooms</item>
+        <item>Green onion</item>
+        <item>Onions</item>
+        <item>Peas</item>
+        <item>Green pepper</item>
+        <item>Red pepper</item>
+        <item>Yellow pepper</item>
+        <item>Potato</item>
+        <item>Squash</item>
+        <item>Tomato</item>
+        <item>Turnip</item>
+        <item>Zucchini</item>
+    </string-array>
+
+    <!-- Dairy -->
+    <string-array name="cheese">
+        <item>American cheese</item>
+        <item>Cheddar cheese</item>
+        <item>Cream cheese</item>
+        <item>Colby cheese</item>
+        <item>Cottage cheese</item>
+        <item>Feta cheese</item>
+        <item>Gouda cheese</item>
+        <item>Mozzarella cheese</item>
+        <item>Pepper jack cheese</item>
+        <item>Ricotta cheese</item>
+        <item>Swiss cheese</item>
+    </string-array>
+    <string-array name="milk">
+        <item>Buttermilk</item>
+        <item>Coconut milk</item>
+        <item>Soy milk</item>
+        <item>Skim milk</item>
+        <item>Whole milk</item>
+    </string-array>
+    <string-array name="other_dairy">
+        <item>Cool whip</item>
+        <item>Half and half</item>
+        <item>Heavy cream</item>
+        <item>Sour cream</item>
+        <item>Yogurt</item>
+    </string-array>
+
+    <!-- Fruit -->
+    <string-array name="canned_fruit">
+        <item>Canned pineapple</item>
+    </string-array>
+    <string-array name="fruit">
+        <item>Apple</item>
+        <item>Apricot</item>
+        <item>Banana</item>
+        <item>Blueberries</item>
+        <item>Cantaloupe</item>
+        <item>Cherries</item>
+        <item>Kiwi</item>
+        <item>Lemon</item>
+        <item>Lime</item>
+        <item>Mango</item>
+        <item>Nectarines</item>
+        <item>Orange</item>
+        <item>Peach</item>
+        <item>Pear</item>
+        <item>Papaya</item>
+        <item>Pineapple</item>
+        <item>Plum</item>
+        <item>Prune</item>
+        <item>Raisins</item>
+        <item>Raspberries</item>
+        <item>Strawberries</item>
+        <item>Tangerine</item>
+        <item>Watermelon</item>
+    </string-array>
+
+    <!-- Starches -->
+    <string-array name="bread">
+        <item>Wheat bread</item>
+        <item>White bread</item>
+    </string-array>
+    <string-array name="pasta">
+        <item>Elbow Macaroni</item>
+        <item>Fettuccine</item>
+        <item>Linguine</item>
+        <item>Manicotti shells</item>
+        <item>Mostaccioli</item>
+        <item>Penne</item>
+        <item>Ravioli</item>
+        <item>Rigatoni pasta</item>
+        <item>Rotini</item>
+        <item>Spaghetti</item>
+        <item>Cheese tortellini</item>
+        <item>Ziti pasta</item>
+    </string-array>
+
+    <!-- Other -->
+    <string-array name="baking">
+        <item>Chocolate chips</item>
+        <item>Flour</item>
+        <item>Molasses</item>
+        <item>Sugar</item>
+        <item>Vanilla extract</item>
+    </string-array>
+    <string-array name="condiments">
+        <item>Barbecue sauce</item>
+        <item>Honey</item>
+        <item>Hot sauce</item>
+        <item>Ketchup</item>
+        <item>Mayonnaise</item>
+        <item>Mustard</item>
+        <item>Miracle whip</item>
+        <item>Pesto</item>
+        <item>Ranch dressing</item>
+        <item>Soy sauce</item>
+        <item>Worcestershire sauce</item>
+    </string-array>
+    <string-array name="fats">
+        <item>Butter</item>
+        <item>Margarine</item>
+        <item>Lard</item>
+    </string-array>
+    <string-array name="oils">
+        <item>Canola oil</item>
+        <item>Corn oil</item>
+        <item>Olive oil</item>
+        <item>Peanut oil</item>
+        <item>Sesame oil</item>
+    </string-array>
+    <string-array name="spices">
+        <item>All spice</item>
+        <item>Basil</item>
+        <item>Bay leaf</item>
+        <item>Black pepper</item>
+        <item>Cajun seasoning</item>
+        <item>Cayenne</item>
+        <item>Celery salt</item>
+        <item>Chili powder</item>
+        <item>Cinnamon</item>
+        <item>Chinese five spice</item>
+        <item>Chipotle chilies</item>
+        <item>Chives</item>
+        <item>Cilantro</item>
+        <item>Cloves</item>
+        <item>Coriander seed</item>
+        <item>Crushed red pepper flakes</item>
+        <item>Cream of tartar</item>
+        <item>Cumin</item>
+        <item>Dill</item>
+        <item>Fennel seed</item>
+        <item>Garlic</item>
+        <item>Garlic powder</item>
+        <item>Garlic salt</item>
+        <item>Ginger</item>
+        <item>Marjoram</item>
+        <item>Minced onion</item>
+        <item>Nutmeg</item>
+        <item>Onion powder</item>
+        <item>Orange zest</item>
+        <item>Oregano</item>
+        <item>Paprika</item>
+        <item>Parsley</item>
+        <item>Peppercorn</item>
+        <item>Rosemary</item>
+        <item>Saffron</item>
+        <item>Sea salt</item>
+        <item>Thyme</item>
+    </string-array>
+</resources>

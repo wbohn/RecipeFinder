@@ -59,6 +59,6 @@ public abstract class EndlessScrollListener implements AbsListView.OnScrollListe
     public abstract void onLoadMore(int page, int totalItemsCount);
     @Override
     public void onScrollStateChanged(AbsListView view, int scrollState) {
-        // do nothin
+        // do nothing
     }
 }

@@ -10,6 +10,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -24,6 +25,7 @@ import com.squareup.otto.Subscribe;
 import com.wbohn.recipefinder.App;
 import com.wbohn.recipefinder.Bus.IngredientSelectedEvent;
 import com.wbohn.recipefinder.Bus.RecipeRequest;
+import com.wbohn.recipefinder.Bus.RefreshRequest;
 import com.wbohn.recipefinder.R;
 
 import java.util.ArrayList;
@@ -59,6 +61,8 @@ public class KeywordFragment extends Fragment {
             currentKeywords = new ArrayList<String>();
             currentIngredients = new ArrayList<String>();
         }
+
+        setHasOptionsMenu(true);
     }
 
     @Override
@@ -139,6 +143,28 @@ public class KeywordFragment extends Fragment {
         outState.putBoolean("expanded", expanded);
     }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        if (id == R.id.action_refresh) {
+            App.getEventBus().post(new RefreshRequest(currentKeywords, currentIngredients));
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    @Subscribe
+    public void onIngredientEvent(IngredientSelectedEvent event) {
+        for (String s : event.getIngredients()) {
+            if (s != null) {
+                currentIngredients.add(0, s);
+            }
+        }
+
+        showKeywords();
+        App.getEventBus().post(new RecipeRequest(currentKeywords, currentIngredients));
+    }
+
     private void toggleContent() {
         if (content.isShown()) {
             hideContent();
@@ -169,18 +195,6 @@ public class KeywordFragment extends Fragment {
             displayText += s +  "   ";
         }
         keywords.setText(displayText);
-    }
-
-    @Subscribe
-    public void onIngredientEvent(IngredientSelectedEvent event) {
-        for (String s : event.getIngredients()) {
-            if (s != null) {
-                currentIngredients.add(0, s);
-            }
-        }
-
-        showKeywords();
-        App.getEventBus().post(new RecipeRequest(currentKeywords, currentIngredients));
     }
 
     private static class CategoryAdapter extends BaseAdapter {

@@ -1,20 +1,20 @@
 package com.wbohn.recipefinder.RecipeList;
 
-import android.app.ActionBar;
 import android.app.ListFragment;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.util.AttributeSet;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.android.volley.toolbox.ImageLoader;
 import com.android.volley.toolbox.NetworkImageView;
@@ -22,7 +22,9 @@ import com.android.volley.toolbox.NetworkImageView;
 import com.squareup.otto.Subscribe;
 import com.wbohn.recipefinder.App;
 import com.wbohn.recipefinder.Bus.LoadNextRequest;
+import com.wbohn.recipefinder.Bus.RecipeRequest;
 import com.wbohn.recipefinder.Bus.RecipesReceivedEvent;
+import com.wbohn.recipefinder.Bus.RefreshRequest;
 import com.wbohn.recipefinder.R;
 import com.wbohn.recipefinder.Network.Volley;
 
@@ -72,15 +74,14 @@ public class RecipeListFragment extends ListFragment {
             }
             addRecipesToList(recipes);
         }
-        setEmptyText(getString(R.string.empty_text));
-        getListView().getEmptyView().setPadding(10, 100, 10, 100);
+        //setEmptyText(getString(R.string.empty_text));
+        //getListView().getEmptyView().setPadding(10, 100, 10, 100);
     }
 
     @Override
     public void onResume() {
         super.onResume();
         App.getEventBus().register(this);
-
     }
 
     @Override

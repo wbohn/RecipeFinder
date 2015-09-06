@@ -4,6 +4,7 @@
     <string name="ingredients">Ingredients</string>
     <string name="label_search">Keywords</string>
     <string name="empty_text">Select ingredients or add keywords to find recipes</string>
+    <string name="network_error">Unable to find recipes. There may be a problem with your connection or </string>
     <string name="title_activity_about">About</string>
     <string name="about">Recipe database provided by</string>
     <string name="url">www.recipepuppy.com</string>

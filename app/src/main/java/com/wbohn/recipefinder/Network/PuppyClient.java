@@ -6,6 +6,7 @@ import android.app.Fragment;
 
 import android.text.TextUtils;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.Response;
@@ -13,9 +14,11 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.squareup.otto.Subscribe;
 import com.wbohn.recipefinder.App;
+import com.wbohn.recipefinder.Bus.ErrorEvent;
 import com.wbohn.recipefinder.Bus.LoadNextRequest;
 import com.wbohn.recipefinder.Bus.RecipeRequest;
 import com.wbohn.recipefinder.Bus.RecipesReceivedEvent;
+import com.wbohn.recipefinder.Bus.RefreshRequest;
 import com.wbohn.recipefinder.RecipeList.Recipe;
 
 import org.json.JSONObject;
@@ -38,7 +41,7 @@ public class PuppyClient extends Fragment {
 
     private int retryCount = 0;
     private boolean loadingNext = false;
-
+    private int currentPage = 1;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -59,14 +62,24 @@ public class PuppyClient extends Fragment {
         keywords = event.getKeywords();
         ingredients = event.getIngredients();
 
-        requestRecipes(1);
+        currentPage = 1;
+
+        requestRecipes(currentPage);
     }
 
     @Subscribe
     public void onLoadRequest(LoadNextRequest event) {
-        int page = event.getPage();
+        currentPage = event.getPage();
         loadingNext = true;
-        requestRecipes(page);
+        requestRecipes(currentPage);
+    }
+
+    @Subscribe
+    public void onRefreshRequest(RefreshRequest request) {
+        keywords = request.getCurrentKeywords();
+        ingredients = request.getCurrentIngredients();
+
+        requestRecipes(currentPage);
     }
 
     private void requestRecipes(int page) {
@@ -87,6 +100,10 @@ public class PuppyClient extends Fragment {
 
                     @Override
                     public void onErrorResponse(VolleyError error) {
+                        /* Due to quirks in Recipe Puppy database, some ingredients
+                         (e.g. bacon) will cause a page not found error when
+                         they are the only ingredient in the search query. a keyword search
+                         of the ingredient will likely yield results */
                         tryAsKeyword();
                     }
                 });
@@ -110,15 +127,17 @@ public class PuppyClient extends Fragment {
     }
 
     private void tryAsKeyword() {
-        if (retryCount <= 0) {
-            if (ingredients.size() > 0) {
-                String ingredient = ingredients.get(0);
-                ingredients.remove(0);
+        if (retryCount <= 0 && ingredients.size() > 0) {
+            String ingredient = ingredients.get(0);
+            ingredients.remove(0);
 
-                keywords.add(0, ingredient);
-                requestRecipes(1);
-                retryCount++;
-            }
+            keywords.add(0, ingredient);
+            requestRecipes(1);
+            retryCount++;
+        } else {
+            Log.i(TAG, "ERROR");
+            /* actual communication error. alert ui */
+            App.getEventBus().post(new ErrorEvent());
         }
     }
 }

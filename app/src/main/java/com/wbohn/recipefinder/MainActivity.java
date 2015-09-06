@@ -20,12 +20,6 @@ import com.wbohn.recipefinder.Network.PuppyClient;
 public class MainActivity extends AppCompatActivity {
     private PuppyClient puppyClient;
 
-    private ProgressBar loadingIcon;
-    private TextView emptyText;
-    private TextView recipePuppyLink;
-
-    private Menu menu;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,10 +33,6 @@ public class MainActivity extends AppCompatActivity {
             puppyClient = new PuppyClient();
             fragmentManager.beginTransaction().add(puppyClient, "puppyClient").commit();
         }
-
-        loadingIcon = (ProgressBar) findViewById(R.id.loadingIcon);
-        emptyText = (TextView) findViewById(R.id.empty_text);
-        recipePuppyLink = (TextView) findViewById(R.id.link);
     }
 
     @Override
@@ -64,7 +54,6 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_main, menu);
-        this.menu = menu;
         return true;
     }
 
@@ -79,44 +68,5 @@ public class MainActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
-    }
-
-    @Subscribe
-    public void onRecipeRequest(RecipeRequest request) {
-        hideError();
-        loadingIcon.setVisibility(View.VISIBLE);
-    }
-
-    @Subscribe
-    public void onRecipesReceived(RecipesReceivedEvent event) {
-        hideError();
-
-        loadingIcon.setVisibility(View.GONE);
-        if (menu != null) {
-            menu.findItem(R.id.action_refresh).setVisible(false);
-        }
-    }
-
-    @Subscribe
-    public void onError(ErrorEvent error) {
-        loadingIcon.setVisibility(View.GONE);
-        emptyText.setVisibility(View.VISIBLE);
-        emptyText.setText(getResources().getString(R.string.network_error));
-        recipePuppyLink.setVisibility(View.VISIBLE);
-
-        if (menu != null) {
-            menu.findItem(R.id.action_refresh).setVisible(true);
-        }
-    }
-
-    @Subscribe
-    public void onRefreshRequest(RefreshRequest request) {
-        hideError();
-        loadingIcon.setVisibility(View.VISIBLE);
-    }
-
-    private void hideError() {
-        emptyText.setVisibility(View.GONE);
-        recipePuppyLink.setVisibility(View.GONE);
     }
 }

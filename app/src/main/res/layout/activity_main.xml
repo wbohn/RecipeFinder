@@ -6,39 +6,6 @@
     android:orientation="vertical"
     android:background="@color/icons">
 
-    <LinearLayout
-        android:padding="6dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_gravity="center">
-
-        <TextView android:id="@+id/empty_text"
-            android:padding="10dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/empty_text"
-            android:textSize="18dp"
-            android:layout_gravity="center"
-            android:gravity="center"/>
-        <TextView android:id="@+id/link"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:visibility="gone"
-            android:text="@string/url"
-            android:autoLink="web"/>
-
-        <ProgressBar
-            android:padding="10dp"
-            android:id="@+id/loadingIcon"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:indeterminate="true"
-            android:layout_gravity="center"
-            android:visibility="gone"/>
-    </LinearLayout>
-
     <FrameLayout
         android:orientation="vertical"
         android:layout_width="match_parent"

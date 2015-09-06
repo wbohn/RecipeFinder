@@ -15,6 +15,7 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.squareup.otto.Subscribe;
 import com.wbohn.recipefinder.App;
 import com.wbohn.recipefinder.Bus.ErrorEvent;
+import com.wbohn.recipefinder.Bus.KeywordsClearedEvent;
 import com.wbohn.recipefinder.Bus.LoadNextRequest;
 import com.wbohn.recipefinder.Bus.RecipeRequest;
 import com.wbohn.recipefinder.Bus.RecipesReceivedEvent;
@@ -80,6 +81,13 @@ public class PuppyClient extends Fragment {
         ingredients = request.getCurrentIngredients();
 
         requestRecipes(currentPage);
+    }
+
+    @Subscribe
+    public void onKeywordsCleared(KeywordsClearedEvent event) {
+        keywords = null;
+        ingredients = null;
+        currentPage = 1;
     }
 
     private void requestRecipes(int page) {

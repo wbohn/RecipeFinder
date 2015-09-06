@@ -7,11 +7,14 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -21,6 +24,8 @@ import com.android.volley.toolbox.NetworkImageView;
 
 import com.squareup.otto.Subscribe;
 import com.wbohn.recipefinder.App;
+import com.wbohn.recipefinder.Bus.ErrorEvent;
+import com.wbohn.recipefinder.Bus.KeywordsClearedEvent;
 import com.wbohn.recipefinder.Bus.LoadNextRequest;
 import com.wbohn.recipefinder.Bus.RecipeRequest;
 import com.wbohn.recipefinder.Bus.RecipesReceivedEvent;
@@ -34,7 +39,35 @@ public class RecipeListFragment extends ListFragment {
     private RecipeAdapter recipeAdapter;
     private EndlessScrollListener endlessScrollListener;
 
+    private ProgressBar loadingIcon;
+    private TextView emptyText;
+    private TextView recipePuppyLink;
+    private Menu menu;
+
+    private boolean showingError = false;
+
     public RecipeListFragment() {
+    }
+
+    @Override
+    public void onCreate(Bundle savedInstanceSate) {
+        super.onCreate(savedInstanceSate);
+        setHasOptionsMenu(true);
+
+        if (savedInstanceSate != null) {
+            showingError = savedInstanceSate.getBoolean("showingError");
+        }
+    }
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.fragment_recipe_list, null);
+
+        loadingIcon = (ProgressBar) view.findViewById(R.id.loadingIcon);
+        emptyText = (TextView) view.findViewById(R.id.empty_text);
+        recipePuppyLink = (TextView) view.findViewById(R.id.link);
+
+        return view;
     }
 
     @Override
@@ -66,6 +99,13 @@ public class RecipeListFragment extends ListFragment {
         });
 
         if (savedInstanceState != null) {
+            showingError = savedInstanceState.getBoolean("showingError");
+            if (showingError) {
+                showError();
+                return;
+            } else {
+                hideError();
+            }
             int numRecipes = savedInstanceState.getInt("numRecipes");
             Recipe recipes[] = new Recipe[numRecipes];
 
@@ -74,8 +114,22 @@ public class RecipeListFragment extends ListFragment {
             }
             addRecipesToList(recipes);
         }
-        //setEmptyText(getString(R.string.empty_text));
-        //getListView().getEmptyView().setPadding(10, 100, 10, 100);
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        super.onCreateOptionsMenu(menu, inflater);
+        this.menu = menu;
+    }
+
+    @Override
+    public void onPrepareOptionsMenu(Menu menu) {
+        super.onPrepareOptionsMenu(menu);
+        if (showingError) {
+            menu.findItem(R.id.action_refresh).setVisible(true);
+        } else {
+            menu.findItem(R.id.action_refresh).setVisible(false);
+        }
     }
 
     @Override
@@ -101,16 +155,25 @@ public class RecipeListFragment extends ListFragment {
             String key = "recipe_" + String.valueOf(i);
             outState.putParcelable(key, recipeAdapter.getItem(i));
         }
+
+        outState.putBoolean("showingError", showingError);
     }
 
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
+    @Subscribe
+    public void onRecipeRequest(RecipeRequest request) {
+        hideError();
+        loadingIcon.setVisibility(View.VISIBLE);
     }
 
     @Subscribe
     public void onRecipesReceived(RecipesReceivedEvent event) {
         Log.i(TAG, "onRecipesReceived");
+        hideError();
+        loadingIcon.setVisibility(View.GONE);
+        if (menu != null) {
+            menu.findItem(R.id.action_refresh).setVisible(false);
+        }
+
         if (!event.isLoadRequest()) {
             recipeAdapter.clear();
             recipeAdapter.notifyDataSetChanged();
@@ -121,6 +184,46 @@ public class RecipeListFragment extends ListFragment {
         if (!event.isLoadRequest()) {
             getListView().setSelection(0);
         }
+    }
+
+    @Subscribe
+    public void onRefreshRequest(RefreshRequest request) {
+        hideError();
+        loadingIcon.setVisibility(View.VISIBLE);
+    }
+
+    @Subscribe
+    public void onError(ErrorEvent error) {
+        showError();
+        if (menu != null) {
+            menu.findItem(R.id.action_refresh).setVisible(true);
+        }
+    }
+
+    @Subscribe
+    public void onKeywordsCleared(KeywordsClearedEvent event) {
+        if (showingError) {
+            hideError();
+            if (menu != null) {
+                menu.findItem(R.id.action_refresh).setVisible(false);
+            }
+            emptyText.setVisibility(View.VISIBLE);
+            emptyText.setText(getResources().getString(R.string.empty_text));
+        }
+    }
+
+    private void showError() {
+        showingError = true;
+        loadingIcon.setVisibility(View.GONE);
+        emptyText.setVisibility(View.VISIBLE);
+        emptyText.setText(getResources().getString(R.string.network_error));
+        recipePuppyLink.setVisibility(View.VISIBLE);
+    }
+
+    private void hideError() {
+        showingError = false;
+        emptyText.setVisibility(View.GONE);
+        recipePuppyLink.setVisibility(View.GONE);
     }
 
     private void addRecipesToList(Recipe[] recipes) {

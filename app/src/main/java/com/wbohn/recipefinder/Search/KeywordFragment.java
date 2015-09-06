@@ -6,7 +6,6 @@ import android.content.Context;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -24,6 +23,7 @@ import android.widget.TextView;
 import com.squareup.otto.Subscribe;
 import com.wbohn.recipefinder.App;
 import com.wbohn.recipefinder.Bus.IngredientSelectedEvent;
+import com.wbohn.recipefinder.Bus.KeywordsClearedEvent;
 import com.wbohn.recipefinder.Bus.RecipeRequest;
 import com.wbohn.recipefinder.Bus.RefreshRequest;
 import com.wbohn.recipefinder.R;
@@ -38,7 +38,7 @@ public class KeywordFragment extends Fragment {
     private EditText keywordEditText;
     private ImageView addKeywordButton;
     private TextView keywords;
-    private ImageView cancelButton;
+    private ImageView clearKeywordsButton;
     private ImageView expandImage;
     private LinearLayout expandButton;
 
@@ -52,6 +52,7 @@ public class KeywordFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setHasOptionsMenu(true);
 
         if (savedInstanceState != null) {
             currentKeywords = savedInstanceState.getStringArrayList("keywords");
@@ -62,7 +63,6 @@ public class KeywordFragment extends Fragment {
             currentIngredients = new ArrayList<String>();
         }
 
-        setHasOptionsMenu(true);
     }
 
     @Override
@@ -78,17 +78,18 @@ public class KeywordFragment extends Fragment {
         keywordEditText = (EditText) root.findViewById(R.id.editText_keyword);
         addKeywordButton = (ImageView) root.findViewById(R.id.addKeyword);
         keywords = (TextView) root.findViewById(R.id.textView_keywords);
-        cancelButton = (ImageView) root.findViewById(R.id.button_cancel);
+        clearKeywordsButton = (ImageView) root.findViewById(R.id.button_cancel);
         expandButton = (LinearLayout) root.findViewById(R.id.expand_button);
         expandImage = (ImageView) root.findViewById(R.id.expand_image);
 
         content = (RelativeLayout) root.findViewById(R.id.content);
 
-        cancelButton.setOnClickListener(new View.OnClickListener() {
+        clearKeywordsButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 currentKeywords.clear();
                 currentIngredients.clear();
+                App.getEventBus().post(new KeywordsClearedEvent());
                 showKeywords();
             }
         });
@@ -115,11 +116,6 @@ public class KeywordFragment extends Fragment {
         }
 
         return root;
-    }
-
-    @Override
-    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        super.onCreateOptionsMenu(menu, inflater);
     }
 
     @Override

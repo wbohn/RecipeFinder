@@ -108,6 +108,8 @@ public class PuppyClient extends Fragment {
 
                     @Override
                     public void onErrorResponse(VolleyError error) {
+
+
                         /* Due to quirks in Recipe Puppy database, some ingredients
                          (e.g. bacon) will cause a page not found error when
                          they are the only ingredient in the search query. a keyword search

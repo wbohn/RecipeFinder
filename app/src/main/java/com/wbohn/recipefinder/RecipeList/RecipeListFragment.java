@@ -100,12 +100,7 @@ public class RecipeListFragment extends ListFragment {
 
         if (savedInstanceState != null) {
             showingError = savedInstanceState.getBoolean("showingError");
-            if (showingError) {
-                showError();
-                return;
-            } else {
-                hideError();
-            }
+
             int numRecipes = savedInstanceState.getInt("numRecipes");
             Recipe recipes[] = new Recipe[numRecipes];
 
@@ -113,6 +108,15 @@ public class RecipeListFragment extends ListFragment {
                 recipes[i] = savedInstanceState.getParcelable("recipe_" + String.valueOf(i));
             }
             addRecipesToList(recipes);
+
+            if (showingError) {
+                showError();
+                return;
+            } else {
+                hideError();
+                emptyText.setVisibility(View.VISIBLE);
+                emptyText.setText(getResources().getString(R.string.empty_text));
+            }
         }
     }
 

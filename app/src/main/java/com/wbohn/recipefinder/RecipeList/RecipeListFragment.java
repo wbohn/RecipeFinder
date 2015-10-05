@@ -42,6 +42,7 @@ public class RecipeListFragment extends ListFragment {
     private Menu menu;
 
     private boolean showingError = false;
+    private boolean showingInstructions = true;
 
     public RecipeListFragment() {
     }
@@ -97,6 +98,7 @@ public class RecipeListFragment extends ListFragment {
 
         if (savedInstanceState != null) {
             showingError = savedInstanceState.getBoolean("showingError");
+            showingInstructions = savedInstanceState.getBoolean("showingInstructions");
 
             int numRecipes = savedInstanceState.getInt("numRecipes");
             Recipe recipes[] = new Recipe[numRecipes];
@@ -111,8 +113,10 @@ public class RecipeListFragment extends ListFragment {
                 return;
             } else {
                 hideError();
-                emptyText.setVisibility(View.VISIBLE);
-                emptyText.setText(getResources().getString(R.string.empty_text));
+                if (showingInstructions) {
+                    emptyText.setVisibility(View.VISIBLE);
+                    emptyText.setText(getResources().getString(R.string.empty_text));
+                }
             }
         }
     }
@@ -158,6 +162,7 @@ public class RecipeListFragment extends ListFragment {
         }
 
         outState.putBoolean("showingError", showingError);
+        outState.putBoolean("showingInstructions", showingInstructions);
     }
 
     @Subscribe
@@ -185,6 +190,7 @@ public class RecipeListFragment extends ListFragment {
         if (!event.isLoadRequest()) {
             getListView().setSelection(0);
         }
+        showingInstructions = false;
     }
 
     @Subscribe
@@ -208,13 +214,18 @@ public class RecipeListFragment extends ListFragment {
             if (menu != null) {
                 menu.findItem(R.id.action_refresh).setVisible(false);
             }
-            emptyText.setVisibility(View.VISIBLE);
-            emptyText.setText(getResources().getString(R.string.empty_text));
+            if (getListAdapter().getCount() <= 0) {
+                if (showingInstructions) {
+                    emptyText.setVisibility(View.VISIBLE);
+                    emptyText.setText(getResources().getString(R.string.empty_text));
+                }
+            }
         }
     }
 
     private void showError() {
         showingError = true;
+        showingInstructions = false;
         loadingIcon.setVisibility(View.GONE);
         emptyText.setVisibility(View.VISIBLE);
         emptyText.setText(getResources().getString(R.string.network_error));

@@ -5,9 +5,6 @@ import android.app.Application;
 import com.squareup.otto.Bus;
 import com.squareup.otto.ThreadEnforcer;
 
-/**
- * Created by William on 7/7/2015.
- */
 public class App extends Application {
     private static Bus eventBus;
 

@@ -124,10 +124,8 @@ public class PuppyClient extends Fragment {
                         } else {
                             App.getEventBus().post(new ErrorEvent());
                         }
-                        //tryAsKeyword();
                     }
                 });
-
         Volley.getInstance(getActivity()).addToRequestQueue(jsObjRequest);
     }
 

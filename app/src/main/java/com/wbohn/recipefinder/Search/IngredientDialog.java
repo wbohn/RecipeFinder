@@ -68,7 +68,7 @@ public class IngredientDialog extends DialogFragment {
                 .setPositiveButton("Done", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        saveSelectedIngredient();
+                        saveSelectedIngredients();
                     }
                 })
                 .setNegativeButton("Back", new DialogInterface.OnClickListener() {
@@ -120,20 +120,23 @@ public class IngredientDialog extends DialogFragment {
         }
     };
 
-    private void saveSelectedIngredient() {
+    private void saveSelectedIngredients() {
         SparseBooleanArray checked = ingredientsList.getCheckedItemPositions();
         int size = checked.size(); // number of name-value pairs in the array
 
         String[] selectedIngredients = new String[size];
-
+        boolean ingredientSelected = false;
         for (int i = 0; i < size; i++) {
             int key = checked.keyAt(i);
             boolean value = checked.get(key);
             if (value) { // item has not been unselected
                 selectedIngredients[i] = ingredientsAdapter.getItem(key);
+                ingredientSelected = true;
             }
         }
-        App.getEventBus().post(new IngredientSelectedEvent(selectedIngredients));
+        if (ingredientSelected) {
+            App.getEventBus().post(new IngredientSelectedEvent(selectedIngredients));
+        }
     }
 
     @Override

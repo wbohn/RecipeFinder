@@ -6,15 +6,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.ProgressBar;
-import android.widget.TextView;
 
-import com.squareup.otto.Subscribe;
-import com.wbohn.recipefinder.Bus.ErrorEvent;
-import com.wbohn.recipefinder.Bus.RecipeRequest;
-import com.wbohn.recipefinder.Bus.RecipesReceivedEvent;
-import com.wbohn.recipefinder.Bus.RefreshRequest;
 import com.wbohn.recipefinder.Network.PuppyClient;
 
 public class MainActivity extends AppCompatActivity {

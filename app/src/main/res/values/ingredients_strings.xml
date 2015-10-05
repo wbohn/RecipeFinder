@@ -86,6 +86,8 @@
         <item>Celery</item>
         <item>Corn</item>
         <item>Cucumber</item>
+        <item>Habanero</item>
+        <item>Jalapeno</item>
         <item>Lettuce</item>
         <item>Mushrooms</item>
         <item>Green onion</item>
@@ -118,6 +120,8 @@
     <string-array name="milk">
         <item>Buttermilk</item>
         <item>Coconut milk</item>
+        <item>Condensed milk</item>
+        <item>Powdered milk</item>
         <item>Soy milk</item>
         <item>Skim milk</item>
         <item>Whole milk</item>
@@ -126,6 +130,7 @@
         <item>Cool whip</item>
         <item>Half and half</item>
         <item>Heavy cream</item>
+        <item>Ice cream</item>
         <item>Sour cream</item>
         <item>Yogurt</item>
     </string-array>

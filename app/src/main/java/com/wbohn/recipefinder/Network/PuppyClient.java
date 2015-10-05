@@ -6,8 +6,8 @@ import android.app.Fragment;
 
 import android.text.TextUtils;
 import android.util.Log;
-import android.widget.Toast;
 
+import com.android.volley.NetworkResponse;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
@@ -108,13 +108,23 @@ public class PuppyClient extends Fragment {
 
                     @Override
                     public void onErrorResponse(VolleyError error) {
-
-
-                        /* Due to quirks in Recipe Puppy database, some ingredients
-                         (e.g. bacon) will cause a page not found error when
-                         they are the only ingredient in the search query. a keyword search
-                         of the ingredient will likely yield results */
-                        tryAsKeyword();
+                        Log.i(TAG, "ERROR");
+                        NetworkResponse response = error.networkResponse;
+                        if (response != null) {
+                            Log.i(TAG, String.valueOf(response.statusCode));
+                            /* Due to quirks in Recipe Puppy database, some ingredients
+                             (e.g. bacon) will cause a page not found error when
+                            they are the only ingredient in the search query. a keyword search
+                             of the ingredient will likely yield results */
+                            if (response.statusCode == 500) {
+                                tryAsKeyword();
+                            } else {
+                                App.getEventBus().post(new ErrorEvent());
+                            }
+                        } else {
+                            App.getEventBus().post(new ErrorEvent());
+                        }
+                        //tryAsKeyword();
                     }
                 });
 
@@ -145,9 +155,12 @@ public class PuppyClient extends Fragment {
             requestRecipes(1);
             retryCount++;
         } else {
-            Log.i(TAG, "ERROR");
-            /* actual communication error. alert ui */
-            App.getEventBus().post(new ErrorEvent());
+            if (currentPage > 1) {
+                /* there are no more recipes available. do nothing */
+            } else {
+                /* actual communication error. alert ui */
+                App.getEventBus().post(new ErrorEvent());
+            }
         }
     }
 }
